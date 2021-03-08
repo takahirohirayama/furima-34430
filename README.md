@@ -1,24 +1,71 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column    | Type    | Options     |
+| --------- | --------| ----------- |
+| nickname  | string  | null: false |
+| email     | string  | null: false |
+| password  | string  | null: false |
+| name      | string  | null: false |
+| name_kana | string  | null: false |
+| birthday  | numeric | null: false |
 
-* System dependencies
+### Association
 
-* Configuration
+- has_many :items
+- has_many :purchases
 
-* Database creation
 
-* Database initialization
+## items テーブル
 
-* How to run the test suite
+| Column   | Type       | Options              |
+| -------- | ---------- | ---------------------|
+| name     | string     | null: false          |
+| image    |            | ActiveStorageで実装   |
+| price    | numeric    | null: false          |
+| user     | references | foreign_key: true    |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
 
-* Deployment instructions
+- belong to :user
+- has_one   :purchases
 
-* ...
+
+## purchases テーブル
+
+| Column       | Type       | Options            |
+| ------------ | ---------- | ------------------ |
+| card_num     | numeric    | null: false        |
+| exp_month    | numeric    | null: false        |
+| exp_year     | numeric    | null: false        |
+| security_cord| numeric    | null: false        |
+| item         | references |  foreign_key: true |
+| user         | references |  foreign_key: true |
+
+
+### Association
+
+- belongs_to :item
+- belongs_to :user
+- has_one    :shipping_address
+
+
+## shipping_addresses テーブル
+
+| Column     | Type       | Options           |
+| --------   | ---------- | ------------------|
+| post_core  | text       | null: false       |
+| prefecture | text       | null: false       |
+| city       | text       | null: false       |
+| address    | text       | null: false       |
+| building   | text       |                   |
+| phone_num  | numeric    | null: false       |
+| purchase   | references | foreign_key: true |
+
+
+### Association
+
+- belong to :purchase
