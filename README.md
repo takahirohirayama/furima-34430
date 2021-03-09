@@ -37,7 +37,7 @@
 
 ### Association
 
-- belong_to :user
+- belongs_to :user
 - has_one   :purchase
 
 
@@ -71,4 +71,4 @@
 
 ### Association
 
-- belong_to :purchase
+- belongs_to :purchase
