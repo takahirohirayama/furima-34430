@@ -7,7 +7,7 @@
 | Column              | Type    | Options     |
 | ------------------- | --------| ----------- |
 | nickname            | string  | null: false |
-| email               | string  | unique: true|
+| email               | string  | null: false, unique: true|
 | encrypted_password  | string  | null: false |
 | family_name         | string  | null: false |
 | first_name          | string  | null: false |
@@ -18,27 +18,27 @@
 ### Association
 
 - has_many :items
-- has_many :purchase
+- has_many :purchases
 
 
 ## items テーブル
 
-| Column          | Type       | Options              |
-| --------------- | ---------- | ---------------------|
-| name            | string     | null: false          |
-| description     | text       | null: false          |
-| category        | integer    | null: false          |
-| status          | integer    | null: false          |
-| shipping_charge | integer    | null: false          |
-| shipping_area   | integer    | null: false          |
-| days_to_ship    | integer    | null: false          |
-| price           | integer    | null: false          |
-| user            | references | foreign_key: true    |
+| Column             | Type       | Options              |
+| ------------------ | ---------- | ---------------------|
+| name               | string     | null: false          |
+| description        | text       | null: false          |
+| category_id        | integer    | null: false          |
+| status_id          | integer    | null: false          |
+| shipping_charge_id | integer    | null: false          |
+| shipping_area_id   | integer    | null: false          |
+| days_to_ship_id    | integer    | null: false          |
+| price              | integer    | null: false          |
+| user               | references | foreign_key: true    |
 
 ### Association
 
 - belong to :user
-- has_one   :purchases
+- has_one   :purchase
 
 
 ## purchases テーブル
