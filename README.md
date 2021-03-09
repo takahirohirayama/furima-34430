@@ -37,7 +37,7 @@
 
 ### Association
 
-- belong to :user
+- belong_to :user
 - has_one   :purchase
 
 
@@ -61,7 +61,7 @@
 | Column        | Type       | Options           |
 | ------------- | ---------- | ------------------|
 | post_core     | string     | null: false       |
-| prefecture_id | string     | null: false       |
+| prefecture_id | integer    | null: false       |
 | city          | string     | null: false       |
 | address       | string     | null: false       |
 | building      | string     |                   |
@@ -71,4 +71,4 @@
 
 ### Association
 
-- belong to :purchase
+- belong_to :purchase
