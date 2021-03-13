@@ -49,6 +49,21 @@ describe User do
        @user.valid?
        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
      end
+     it "パスワードが英字のみでは登録できない" do
+       @user.password = "aaaaaa"
+       @user.valid?
+       expect(@user.errors.full_messages).to include("Password is invalid")
+     end
+     it "パスワードが数字のみでは登録できない" do
+       @user.password = "000000"
+       @user.valid?
+       expect(@user.errors.full_messages).to include("Password is invalid")
+     end
+     it "パスワードが全角では登録できない" do
+       @user.password = "０００ａａａ"
+       @user.valid?
+       expect(@user.errors.full_messages).to include("Password is invalid")
+     end
      it "パスワード（確認）が空だと登録できない" do
       @user.password_confirmation = ""
       @user.valid?
@@ -71,6 +86,11 @@ describe User do
       expect(@user.errors.full_messages).to include("First name can't be blank")
      end
      it "ユーザー本名は漢字・ひらがな・カタカナ以外だと登録できない" do
+      @user.family_name = "aaaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Family name is invalid")
+     end
+     it "ユーザー本名は漢字・ひらがな・カタカナ以外だと登録できない" do
       @user.first_name = "aaaa"
       @user.valid?
       expect(@user.errors.full_messages).to include("First name is invalid")
@@ -89,6 +109,11 @@ describe User do
       @user.family_name_kana = "aaaa"
       @user.valid?
       expect(@user.errors.full_messages).to include("Family name kana is invalid")
+     end
+     it "ユーザー本名フリガナは全角カタカナ以外だと登録できない" do
+      @user.first_name_kana = "aaaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name kana is invalid")
      end
      it "生年月日が空だと登録できない" do
       @user.birthday = ""
