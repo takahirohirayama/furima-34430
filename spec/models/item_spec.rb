@@ -7,8 +7,12 @@ describe Item do
   describe "商品出品登録" do
     context "商品出品登録がうまくいくとき" do  
       it "すべての項目が入力されれば商品登録ができる" do
+        expect(@item).to be_valid
       end
       it "priceが¥300~¥9,999,999であれば登録できる" do
+        @item.price = "2500"
+        @item.valid?
+        expect(@item).to be_valid
       end
     end
 
