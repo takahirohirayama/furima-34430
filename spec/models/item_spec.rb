@@ -72,10 +72,20 @@ describe Item do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
-      it '販売価格の記載が半角数字以外だと登録できない' do
+      it '販売価格の記載が半角英だと登録できない' do
         @item.price = 'aaaa'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price Out of setting range')
+        expect(@item.errors.full_messages).to include('Price Half-width number')
+      end
+      it '販売価格の記載が全角文字だと登録できない' do
+        @item.price = '１１１１'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Half-width number')
+      end
+      it '販売価格の記載が半角英数混同だと登録できない' do
+        @item.price = '111aaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Half-width number')
       end
     end
   end
