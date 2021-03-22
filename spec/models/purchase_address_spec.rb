@@ -6,7 +6,7 @@ describe PurchaseAddress do
 
   describe '商品の購入' do
     context '商品購入がうまくいくとき' do
-      it 'すべての項目が入力されれば商品購入ができる' do
+      it 'tokenと住所すべての項目が入力されれば商品購入ができる' do
         expect(@purchase_address).to be_valid
       end
       it '建物名がなくても購入できる' do
@@ -51,6 +51,11 @@ describe PurchaseAddress do
         @purchase_address.phone_num = '111111111111'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Phone num is too long (maximum is 11 characters)')
+      end
+      it 'tokenが空では商品購入ができない' do
+        @purchase_address.token = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
