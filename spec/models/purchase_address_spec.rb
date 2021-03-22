@@ -27,6 +27,11 @@ describe PurchaseAddress do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it '都道府県で0が選択されていると購入できない' do
+        @purchase_address.prefecture_id = 0
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it '市町村が空だと購入できない' do
         @purchase_address.city = ''
         @purchase_address.valid?
@@ -51,6 +56,11 @@ describe PurchaseAddress do
         @purchase_address.phone_num = '111111111111'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Phone num is too long (maximum is 11 characters)')
+      end
+      it '電話番号が英数字混合では購入できない' do
+        @purchase_address.phone_num = 'oo00aabb111'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include('Phone num is not a number')
       end
       it 'tokenが空では商品購入ができない' do
         @purchase_address.token = nil

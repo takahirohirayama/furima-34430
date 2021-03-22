@@ -9,6 +9,8 @@ class PurchaseAddress
     validates :address
     validates :phone_num, numericality: { lonly_integer: true }, length: { maximum: 11 }
     validates :token
+    validates :user_id
+    validates :item_id
   end
 
   def save
