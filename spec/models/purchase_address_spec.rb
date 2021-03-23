@@ -9,7 +9,7 @@ describe PurchaseAddress do
 
   describe '商品の購入' do
     context '商品購入がうまくいくとき' do
-      it 'tokenと住所すべての項目が入力されれば商品購入ができる' do
+      it 'token,user_id,item_idと住所すべての項目が入力されれば商品購入ができる' do
         expect(@purchase_address).to be_valid
       end
       it '建物名がなくても購入できる' do
@@ -74,6 +74,16 @@ describe PurchaseAddress do
         @purchase_address.token = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では商品購入ができない' do
+        @purchase_address.user_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では商品購入ができない' do
+        @purchase_address.item_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
